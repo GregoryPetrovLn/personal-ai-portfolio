@@ -53,12 +53,12 @@
             align-items: flex-start;
         }
 
-        /* Back link */
+        /* Back link — native href (same outcome as location.assign, no JS helpers) */
         .back-link {
             font-size: 11px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             cursor: pointer;
             text-decoration: none;
             color: var(--accent);
@@ -66,11 +66,6 @@
             transition: opacity 0.2s;
         }
         .back-link:hover { opacity: 1; }
-        .back-link svg {
-            width: 16px; height: 16px;
-            stroke: var(--accent); fill: none;
-            stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
-        }
 
         .project-index {
             font-size: 11px;
@@ -148,6 +143,11 @@
         }
         .nav-item:hover { border-color: rgba(229, 195, 166, 0.7); }
 
+        a.nav-item {
+            text-decoration: none;
+            color: inherit;
+        }
+
         .nav-item__label {
             font-size: 10px;
             display: block;
@@ -170,28 +170,44 @@
 
         .arrows {
             display: flex;
-            gap: 16px;
+            gap: 10px;
             justify-content: flex-end;
             margin-bottom: 14px;
         }
 
-        .arrow-btn {
+        /* Match index.html .icon-btn */
+        .icon-btn {
             width: 36px; height: 36px;
             border-radius: 50%;
-            border: 1px solid rgba(229, 195, 166, 0.35);
-            background: none;
+            border: 1px solid rgba(229, 195, 166, 0.5);
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             display: flex; align-items: center; justify-content: center;
             cursor: pointer;
             transition: border-color 0.2s, background 0.2s;
         }
-        .arrow-btn:hover {
+        .icon-btn:hover {
             border-color: var(--accent);
-            background: rgba(229, 195, 166, 0.07);
+            background: rgba(229, 195, 166, 0.08);
         }
-        .arrow-btn svg {
+        .icon-btn svg {
             width: 14px; height: 14px;
             stroke: var(--accent); fill: none;
-            stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        a.icon-btn {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .icon-btn:disabled {
+            opacity: 0.35;
+            pointer-events: none;
+            cursor: default;
         }
 
         .meta-date {
@@ -232,10 +248,7 @@
 
             <!-- TOP BAR -->
             <div class="project-top">
-                <a class="back-link" href="index.html">
-                    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-                    BACK
-                </a>
+                <a class="back-link" href="index.html">← BACK</a>
                 <span class="project-index">02 / 08</span>
             </div>
 
@@ -260,18 +273,18 @@
                         <span class="nav-item__label">01 // CASE STUDY</span>
                         <h4 class="nav-item__title">DESIGN ARCHITECTURE</h4>
                     </div>
-                    <div class="nav-item" onclick="window.location.href='index.html'">
+                    <a class="nav-item" href="index.html">
                         <span class="nav-item__label">02 // RETURN</span>
                         <h4 class="nav-item__title">BACK TO OVERVIEW</h4>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="meta-info">
                     <div class="arrows">
-                        <button class="arrow-btn" aria-label="Previous">
+                        <a class="icon-btn" href="index.html" aria-label="Previous — overview">
                             <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-                        </button>
-                        <button class="arrow-btn" aria-label="Next">
+                        </a>
+                        <button type="button" class="icon-btn" aria-label="Next project" disabled>
                             <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
                         </button>
                     </div>

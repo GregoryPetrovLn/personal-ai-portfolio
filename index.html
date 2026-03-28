@@ -184,6 +184,14 @@
             gap: 20px;
         }
 
+        a.nav-info {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        a.nav-info:hover { opacity: 0.85; }
+
         .line {
             width: 80px; height: 1px;
             background-color: var(--accent);
@@ -338,6 +346,12 @@
             border-color: var(--accent);
         }
 
+        a.glass-card__btn {
+            display: inline-block;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
         /* ── Tags ── */
         .tags-container {
             display: flex;
@@ -454,11 +468,11 @@
                         </button>
                     </div>
                 </div>
-                <div class="nav-info">
+                <a class="nav-info" href="project.html">
                     <span>01/08</span>
                     <div class="line"></div>
                     <span>NEXT PROJECT</span>
-                </div>
+                </a>
             </div>
 
             <!-- SPECS (absolute on desktop) -->
@@ -500,7 +514,7 @@
                         <div class="glass-card__desc">
                             High-performance builds and a sleek UI for speed and simplicity.
                         </div>
-                        <button class="glass-card__btn">View Case Study</button>
+                        <a class="glass-card__btn" href="project.html">View Case Study</a>
                     </div>
                 </div>
 
