@@ -303,12 +303,11 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        .glass-card__thumb svg {
-            width: 32px; height: 32px;
-            opacity: 0.4;
-            stroke: var(--accent);
-            fill: none;
-            stroke-width: 1.2;
+        .glass-card__thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
         }
 
         .glass-card__body {
@@ -513,12 +512,7 @@
                 <!-- Glass card -->
                 <div class="glass-card">
                     <div class="glass-card__thumb">
-                        <!-- Placeholder icon (laptop/code) -->
-                        <svg viewBox="0 0 24 24" stroke-width="1.2">
-                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                            <line x1="8" y1="21" x2="16" y2="21"/>
-                            <line x1="12" y1="17" x2="12" y2="21"/>
-                        </svg>
+                        <img src="public/Union.png" alt="" width="68" height="68" loading="lazy" decoding="async">
                     </div>
                     <div class="glass-card__body">
                         <div class="glass-card__id">GR-01: CREATIVE HUB</div>
