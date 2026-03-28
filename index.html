@@ -9,11 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --accent: #E5C3A6; /* Light sand/gold color */
+            --accent: #E5C3A6;
             --bg: #000000;
         }
 
-        /* Loading screen (spec theme — scoped) */
+        /* ── Loading screen ── */
         .loading-screen {
             --ls-bg: #0a0a0a;
             --ls-text: #f5f5f5;
@@ -43,18 +43,11 @@
         }
 
         @media (min-width: 768px) {
-            .loading-screen__label {
-                top: 3rem;
-                left: 3rem;
-                font-size: 0.875rem;
-            }
+            .loading-screen__label { top: 3rem; left: 3rem; font-size: 0.875rem; }
         }
 
         @keyframes ls-label-in {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .loading-screen__words {
@@ -79,23 +72,11 @@
             transition: opacity 0.4s var(--ls-ease), transform 0.4s var(--ls-ease);
         }
 
-        @media (min-width: 768px) {
-            .loading-screen__word { font-size: 3.75rem; }
-        }
+        @media (min-width: 768px) { .loading-screen__word { font-size: 3.75rem; } }
+        @media (min-width: 1024px) { .loading-screen__word { font-size: 4.5rem; } }
 
-        @media (min-width: 1024px) {
-            .loading-screen__word { font-size: 4.5rem; }
-        }
-
-        .loading-screen__word.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .loading-screen__word.is-exit {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
+        .loading-screen__word.is-visible { opacity: 1; transform: translateY(0); }
+        .loading-screen__word.is-exit   { opacity: 0; transform: translateY(-20px); }
 
         .loading-screen__counter {
             position: absolute;
@@ -112,30 +93,16 @@
             animation: ls-counter-in 0.6s var(--ls-ease) 0.1s forwards;
         }
 
-        @media (min-width: 768px) {
-            .loading-screen__counter {
-                bottom: 3rem;
-                right: 3rem;
-                font-size: 6rem;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .loading-screen__counter { font-size: 8rem; }
-        }
+        @media (min-width: 768px)  { .loading-screen__counter { bottom: 3rem; right: 3rem; font-size: 6rem; } }
+        @media (min-width: 1024px) { .loading-screen__counter { font-size: 8rem; } }
 
         @keyframes ls-counter-in {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .loading-screen__bar-track {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             height: 3px;
             background-color: rgba(31, 31, 31, 0.5);
             overflow: hidden;
@@ -161,15 +128,11 @@
             opacity: 0;
             transition: opacity 0.5s ease-out;
         }
+        .page-content.is-visible { opacity: 1; }
 
-        .page-content.is-visible {
-            opacity: 1;
-        }
-
+        /* ── Base ── */
         body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
+            margin: 0; padding: 0; height: 100%;
             background-color: var(--bg);
             color: var(--accent);
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -178,43 +141,30 @@
             overflow: hidden;
         }
 
-        /* Video Background Container */
+        /* ── Video ── */
         .video-background {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            overflow: hidden;
+            position: fixed; inset: 0; z-index: 0; overflow: hidden;
         }
-
         .video-background video {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
         }
 
-        /* Subtle Overlay to ensure text contrast */
         .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5); /* Adjust opacity if video is too bright */
-            z-index: 1;
-            pointer-events: none;
+            position: fixed; inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1; pointer-events: none;
         }
 
+        /* ── Layout ── */
         .main-container {
-            position: relative;
-            z-index: 2;
-            height: 100vh;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
+            position: relative; z-index: 2;
+            height: 100vh; padding: 40px;
+            display: flex; flex-direction: column;
             justify-content: space-between;
             box-sizing: border-box;
         }
 
-        /* Top Header Section */
+        /* ── Top row ── */
         .top-row {
             display: flex;
             justify-content: space-between;
@@ -235,13 +185,11 @@
         }
 
         .line {
-            width: 80px;
-            height: 1px;
+            width: 80px; height: 1px;
             background-color: var(--accent);
             opacity: 0.4;
         }
 
-        /* Description Section */
         .description {
             max-width: 320px;
             font-size: 12px;
@@ -250,18 +198,52 @@
             text-transform: none;
         }
 
-        /* Technical Specs Table */
+        /* ── Icon buttons (new) ── */
+        .icon-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .icon-btn {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(229, 195, 166, 0.5);
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .icon-btn:hover {
+            border-color: var(--accent);
+            background: rgba(229, 195, 166, 0.08);
+        }
+
+        .icon-btn svg {
+            width: 14px; height: 14px;
+            stroke: var(--accent);
+            fill: none;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* ── Specs ── */
         .specs-container {
             position: absolute;
-            top: 410px;
-            right: 40px;
+            top: 410px; right: 40px;
             width: 300px;
         }
 
         .specs-header {
-            font-size: 11px;
-            margin-bottom: 15px;
-            opacity: 0.8;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            margin-bottom: 12px;
+            color: var(--accent);
         }
 
         .spec-row {
@@ -272,156 +254,148 @@
             font-size: 11px;
         }
 
-        .spec-label { opacity: 0.7; }
+        .spec-label { opacity: 0.6; }
 
-        /* Bottom Section */
+        /* ── Bottom row ── */
         .bottom-row {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
         }
 
-        .product-callout {
-            font-size: 12px;
+        /* ── Glass card (new) ── */
+        .glass-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: rgba(20, 14, 8, 0.55);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(229, 195, 166, 0.18);
+            border-radius: 14px;
+            padding: 14px 18px 14px 14px;
+            max-width: 340px;
         }
 
-        .model-id { font-weight: bold; margin-bottom: 8px; }
-        
-        .sub-desc { 
-            opacity: 0.8; 
-            max-width: 250px; 
-            text-transform: none; 
-            margin-bottom: 25px;
+        .glass-card__thumb {
+            flex-shrink: 0;
+            width: 68px; height: 68px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: rgba(229, 195, 166, 0.08);
+            border: 1px solid rgba(229, 195, 166, 0.15);
+            display: flex; align-items: center; justify-content: center;
         }
 
-        .cta {
-            cursor: pointer;
-            text-decoration: underline;
+        .glass-card__thumb svg {
+            width: 32px; height: 32px;
+            opacity: 0.4;
+            stroke: var(--accent);
+            fill: none;
+            stroke-width: 1.2;
+        }
+
+        .glass-card__body {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .glass-card__id {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+        }
+
+        .glass-card__desc {
             font-size: 11px;
+            line-height: 1.45;
+            opacity: 0.75;
+            text-transform: none;
+            letter-spacing: 0.02em;
+            max-width: 200px;
         }
 
-        /* Tags */
+        .glass-card__btn {
+            margin-top: 8px;
+            display: inline-block;
+            padding: 6px 14px;
+            border: 1px solid rgba(229, 195, 166, 0.55);
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            color: var(--accent);
+            background: rgba(229, 195, 166, 0.06);
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            text-transform: uppercase;
+        }
+
+        .glass-card__btn:hover {
+            background: rgba(229, 195, 166, 0.14);
+            border-color: var(--accent);
+        }
+
+        /* ── Tags ── */
         .tags-container {
             display: flex;
             gap: 10px;
+            align-items: center;
         }
 
         .tag {
-            border: 1px solid var(--accent);
-            padding: 8px 15px;
+            border: 1px solid rgba(229, 195, 166, 0.55);
+            padding: 8px 16px;
             border-radius: 20px;
             font-size: 10px;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            letter-spacing: 0.08em;
+            white-space: nowrap;
         }
 
-        .tag.pill {
-            border-radius: 20px;
-            display: flex;
-            gap: 0;
-            padding: 0;
-        }
-
-        .pill span {
-            padding: 8px 15px;
-        }
-
-        .pill span:first-child {
-            border-right: 1px solid var(--accent);
-        }
-
-        /* Mobile: video strip on top, content below, soft fade into page black */
+        /* ── Mobile ── */
         @media (max-width: 768px) {
             body, html {
-                height: auto;
-                min-height: 100%;
-                overflow-x: hidden;
-                overflow-y: auto;
+                height: auto; min-height: 100%;
+                overflow-x: hidden; overflow-y: auto;
             }
-
-            body {
-                position: relative;
-                display: flex;
-                flex-direction: column;
-            }
+            body { position: relative; display: flex; flex-direction: column; }
 
             .video-background {
-                position: relative;
-                flex-shrink: 0;
-                width: 100%;
-                height: 42vh;
-                min-height: 220px;
-                z-index: 0;
+                position: relative; flex-shrink: 0;
+                width: 100%; height: 42vh; min-height: 220px; z-index: 0;
             }
-
             .video-background::after {
                 content: "";
-                position: absolute;
-                inset: 0;
-                z-index: 1;
-                pointer-events: none;
-                background: linear-gradient(
-                    to bottom,
-                    transparent 0%,
-                    transparent 35%,
-                    rgba(0, 0, 0, 0.45) 65%,
-                    var(--bg) 100%
-                );
+                position: absolute; inset: 0; z-index: 1; pointer-events: none;
+                background: linear-gradient(to bottom, transparent 0%, transparent 35%, rgba(0,0,0,0.45) 65%, var(--bg) 100%);
             }
-
-            .video-background video {
-                z-index: 0;
-            }
-
-            /* Full-screen dim layer is desktop-only; mobile uses ::after gradient on the video block */
-            .overlay {
-                display: none;
-            }
+            .video-background video { z-index: 0; }
+            .overlay { display: none; }
 
             .main-container {
-                flex: 1 0 auto;
-                height: auto;
-                min-height: 0;
+                flex: 1 0 auto; height: auto; min-height: 0;
                 padding: 28px 20px 40px;
-                justify-content: flex-start;
-                gap: 36px;
+                justify-content: flex-start; gap: 36px;
             }
 
             .specs-container {
-                position: static;
-                top: auto;
-                right: auto;
-                width: 100%;
-                max-width: none;
-                margin-top: 0;
+                position: static; top: auto; right: auto;
+                width: 100%; max-width: none; margin-top: 0;
             }
 
-            .top-row {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 24px;
-            }
+            .top-row { flex-direction: column; align-items: flex-start; gap: 24px; }
+            .nav-info { width: 100%; justify-content: space-between; }
+            .main-title { font-size: 36px; }
 
-            .nav-info {
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            .main-title {
-                font-size: 36px;
-            }
-
-            .bottom-row {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 28px;
-            }
-
-            .tags-container {
-                flex-wrap: wrap;
-            }
+            .bottom-row { flex-direction: column; align-items: flex-start; gap: 28px; }
+            .tags-container { flex-wrap: wrap; }
+            .glass-card { max-width: 100%; box-sizing: border-box; }
         }
-
     </style>
 </head>
 <body>
@@ -439,73 +413,107 @@
 
     <div id="page-content" class="page-content">
 
-    <!-- Background Video -->
-    <div class="video-background">
-        <video autoplay muted loop playsinline poster="">
-            <source src="https://r2.syntx.ai/user_8941760239158877405/generated/f30749d9637c31fbe02f7aab1dc59661_89649f0e-286a-4b30-8fa2-7b2d1c1526b0.mp4" type="video/mp4">
-        </video>
-    </div>
-    
-    <!-- Optional Overlay -->
-    <div class="overlay"></div>
-
-    <div class="main-container">
-        <div class="top-row">
-            <div class="header-group">
-                <div class="main-title">
-                    GREGORY //<br>DESIGN<br>STRATEGY
-                </div>
-                <div class="description">
-                    Crafted with precision code and a user-centric focus for those who don't just browse the web—they build it. Elevate your brand.
-                </div>
-            </div>
-            <div class="nav-info">
-                <span>01/08</span>
-                <div class="line"></div>
-                <span>NEXT PROJECT</span>
-            </div>
+        <!-- Background Video -->
+        <div class="video-background">
+            <video autoplay muted loop playsinline poster="">
+                <source src="https://r2.syntx.ai/user_8941760239158877405/generated/f30749d9637c31fbe02f7aab1dc59661_89649f0e-286a-4b30-8fa2-7b2d1c1526b0.mp4" type="video/mp4">
+            </video>
         </div>
 
-        <div class="specs-container">
-            <div class="specs-header">CREATIVE SPECS</div>
-            <div class="spec-row">
-                <span class="spec-label">Stack</span>
-                <span>NextJS Tailwind SQL</span>
+        <div class="overlay"></div>
+
+        <div class="main-container">
+
+            <!-- TOP -->
+            <div class="top-row">
+                <div class="header-group">
+                    <div class="main-title">
+                        GREGORY //<br>DESIGN<br>STRATEGY
+                    </div>
+                    <div class="description">
+                        Crafted with precision code and a user-centric focus for those who don't just browse the web—they build it. Elevate your brand.
+                    </div>
+                    <!-- Icon buttons -->
+                    <div class="icon-buttons">
+                        <!-- Up/arrow icon -->
+                        <button class="icon-btn" aria-label="Scroll up">
+                            <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+                        </button>
+                        <!-- Expand/frame icon -->
+                        <button class="icon-btn" aria-label="Expand">
+                            <svg viewBox="0 0 24 24">
+                                <polyline points="15 3 21 3 21 9"/>
+                                <polyline points="9 21 3 21 3 15"/>
+                                <line x1="21" y1="3" x2="14" y2="10"/>
+                                <line x1="3" y1="21" x2="10" y2="14"/>
+                            </svg>
+                        </button>
+                        <!-- Bolt/flash icon -->
+                        <button class="icon-btn" aria-label="Quick view">
+                            <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="nav-info">
+                    <span>01/08</span>
+                    <div class="line"></div>
+                    <span>NEXT PROJECT</span>
+                </div>
             </div>
-            <div class="spec-row">
-                <span class="spec-label">Design</span>
-                <span>Figma - Adobe Suite</span>
+
+            <!-- SPECS (absolute on desktop) -->
+            <div class="specs-container">
+                <div class="specs-header">CREATIVE SPECS</div>
+                <div class="spec-row">
+                    <span class="spec-label">Stack</span>
+                    <span>NextJS Tailwind SQL</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Design</span>
+                    <span>Figma · Adobe Suite</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Method</span>
+                    <span>Agile Dev · UX Flow</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Output</span>
+                    <span>Clean Scalable Systems</span>
+                </div>
             </div>
-            <div class="spec-row">
-                <span class="spec-label">Method</span>
-                <span>Agile Dev - UX Flow</span>
-            </div>
-            <div class="spec-row">
-                <span class="spec-label">Output</span>
-                <span>Clean Scalable Systems</span>
+
+            <!-- BOTTOM -->
+            <div class="bottom-row">
+
+                <!-- Glass card -->
+                <div class="glass-card">
+                    <div class="glass-card__thumb">
+                        <!-- Placeholder icon (laptop/code) -->
+                        <svg viewBox="0 0 24 24" stroke-width="1.2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                            <line x1="8" y1="21" x2="16" y2="21"/>
+                            <line x1="12" y1="17" x2="12" y2="21"/>
+                        </svg>
+                    </div>
+                    <div class="glass-card__body">
+                        <div class="glass-card__id">GR-01: CREATIVE HUB</div>
+                        <div class="glass-card__desc">
+                            High-performance builds and a sleek UI for speed and simplicity.
+                        </div>
+                        <button class="glass-card__btn">View Case Study</button>
+                    </div>
+                </div>
+
+                <!-- Tags -->
+                <div class="tags-container">
+                    <div class="tag">CODE</div>
+                    <div class="tag">UX</div>
+                    <div class="tag">FULL-STACK</div>
+                    <div class="tag">PIXEL PERF</div>
+                </div>
+
             </div>
         </div>
-
-        <div class="bottom-row">
-            <div>
-                <div class="model-id">GR-01: CREATIVE HUB</div>
-                <div class="sub-desc">
-                    High-performance builds and a sleek UI for speed and simplicity.
-                </div>
-                <div class="cta">View Case Study</div>
-            </div>
-
-            <div class="tags-container">
-                <div class="tag">CODE</div>
-                <div class="tag">UX</div>
-                <div class="tag">FULL-STACK</div>
-                <div class="tag pill">
-                    <span>PIXEL</span>
-                    <span>PERF</span>
-                </div>
-            </div>
-        </div>
-    </div>
 
     </div><!-- /.page-content -->
 
@@ -518,8 +526,8 @@
         var WORD_TRANSITION_MS = 400;
 
         var loadingEl = document.getElementById("loading-screen");
-        var pageEl = document.getElementById("page-content");
-        var wordEl = document.getElementById("loading-word");
+        var pageEl    = document.getElementById("page-content");
+        var wordEl    = document.getElementById("loading-word");
         var counterEl = document.getElementById("loading-counter");
         var barFillEl = document.getElementById("loading-bar-fill");
 
@@ -534,10 +542,7 @@
         function showWord(text, skipEnter) {
             wordEl.textContent = text;
             wordEl.classList.remove("is-exit");
-            if (skipEnter) {
-                wordEl.classList.add("is-visible");
-                return;
-            }
+            if (skipEnter) { wordEl.classList.add("is-visible"); return; }
             wordEl.classList.remove("is-visible");
             void wordEl.offsetWidth;
             wordEl.classList.add("is-visible");
@@ -562,10 +567,7 @@
 
         var wordTimer = window.setInterval(function () {
             wordIndex += 1;
-            if (wordIndex >= WORDS.length) {
-                window.clearInterval(wordTimer);
-                return;
-            }
+            if (wordIndex >= WORDS.length) { window.clearInterval(wordTimer); return; }
             exitWordThen(WORDS[wordIndex], null);
         }, WORD_MS);
 
