@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gregory Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #E5C3A6; /* Light sand/gold color */
+            --bg: #000000;
+        }
+
+        /* Loading screen (spec theme — scoped) */
+        .loading-screen {
+            --ls-bg: #0a0a0a;
+            --ls-text: #f5f5f5;
+            --ls-muted: #888888;
+            --ls-stroke: #1f1f1f;
+            --ls-ease: cubic-bezier(0.4, 0, 0.2, 1);
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background-color: var(--ls-bg);
+            font-family: "Instrument Serif", Georgia, serif;
+        }
+
+        .loading-screen__label {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            font-size: 0.75rem;
+            line-height: 1;
+            color: var(--ls-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: ls-label-in 0.6s var(--ls-ease) 0.1s forwards;
+        }
+
+        @media (min-width: 768px) {
+            .loading-screen__label {
+                top: 3rem;
+                left: 3rem;
+                font-size: 0.875rem;
+            }
+        }
+
+        @keyframes ls-label-in {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .loading-screen__words {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .loading-screen__word {
+            position: absolute;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 2.25rem;
+            line-height: 1.1;
+            color: rgba(245, 245, 245, 0.8);
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s var(--ls-ease), transform 0.4s var(--ls-ease);
+        }
+
+        @media (min-width: 768px) {
+            .loading-screen__word { font-size: 3.75rem; }
+        }
+
+        @media (min-width: 1024px) {
+            .loading-screen__word { font-size: 4.5rem; }
+        }
+
+        .loading-screen__word.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .loading-screen__word.is-exit {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .loading-screen__counter {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            font-size: 3.75rem;
+            line-height: 1;
+            font-style: normal;
+            font-weight: 400;
+            color: var(--ls-text);
+            font-variant-numeric: tabular-nums;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: ls-counter-in 0.6s var(--ls-ease) 0.1s forwards;
+        }
+
+        @media (min-width: 768px) {
+            .loading-screen__counter {
+                bottom: 3rem;
+                right: 3rem;
+                font-size: 6rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .loading-screen__counter { font-size: 8rem; }
+        }
+
+        @keyframes ls-counter-in {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .loading-screen__bar-track {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: rgba(31, 31, 31, 0.5);
+            overflow: hidden;
+        }
+
+        .loading-screen__bar-fill {
+            height: 100%;
+            width: 100%;
+            transform-origin: left center;
+            transform: scaleX(0);
+            background: linear-gradient(90deg, #89aacc 0%, #4e85bf 100%);
+            box-shadow: 0 0 8px rgba(137, 170, 204, 0.35);
+            transition: transform 0.1s linear;
+        }
+
+        .loading-screen.is-exit {
+            opacity: 0;
+            transition: opacity 0.6s var(--ls-ease);
+            pointer-events: none;
+        }
+
+        .page-content {
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .page-content.is-visible {
+            opacity: 1;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: var(--bg);
+            color: var(--accent);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            overflow: hidden;
+        }
+
+        /* Video Background Container */
+        .video-background {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Subtle Overlay to ensure text contrast */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5); /* Adjust opacity if video is too bright */
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 2;
+            height: 100vh;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+
+        /* Top Header Section */
+        .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .main-title {
+            font-size: 52px;
+            line-height: 0.9;
+            font-weight: 800;
+        }
+
+        .nav-info {
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .line {
+            width: 80px;
+            height: 1px;
+            background-color: var(--accent);
+            opacity: 0.4;
+        }
+
+        /* Description Section */
+        .description {
+            max-width: 320px;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-top: 20px;
+            text-transform: none;
+        }
+
+        /* Technical Specs Table */
+        .specs-container {
+            position: absolute;
+            top: 410px;
+            right: 40px;
+            width: 300px;
+        }
+
+        .specs-header {
+            font-size: 11px;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(229, 195, 166, 0.2);
+            padding: 10px 0;
+            font-size: 11px;
+        }
+
+        .spec-label { opacity: 0.7; }
+
+        /* Bottom Section */
+        .bottom-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .product-callout {
+            font-size: 12px;
+        }
+
+        .model-id { font-weight: bold; margin-bottom: 8px; }
+        
+        .sub-desc { 
+            opacity: 0.8; 
+            max-width: 250px; 
+            text-transform: none; 
+            margin-bottom: 25px;
+        }
+
+        .cta {
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 11px;
+        }
+
+        /* Tags */
+        .tags-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tag {
+            border: 1px solid var(--accent);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 10px;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .tag.pill {
+            border-radius: 20px;
+            display: flex;
+            gap: 0;
+            padding: 0;
+        }
+
+        .pill span {
+            padding: 8px 15px;
+        }
+
+        .pill span:first-child {
+            border-right: 1px solid var(--accent);
+        }
+
+        /* Mobile: video strip on top, content below, soft fade into page black */
+        @media (max-width: 768px) {
+            body, html {
+                height: auto;
+                min-height: 100%;
+                overflow-x: hidden;
+                overflow-y: auto;
+            }
+
+            body {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .video-background {
+                position: relative;
+                flex-shrink: 0;
+                width: 100%;
+                height: 42vh;
+                min-height: 220px;
+                z-index: 0;
+            }
+
+            .video-background::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                z-index: 1;
+                pointer-events: none;
+                background: linear-gradient(
+                    to bottom,
+                    transparent 0%,
+                    transparent 35%,
+                    rgba(0, 0, 0, 0.45) 65%,
+                    var(--bg) 100%
+                );
+            }
+
+            .video-background video {
+                z-index: 0;
+            }
+
+            /* Full-screen dim layer is desktop-only; mobile uses ::after gradient on the video block */
+            .overlay {
+                display: none;
+            }
+
+            .main-container {
+                flex: 1 0 auto;
+                height: auto;
+                min-height: 0;
+                padding: 28px 20px 40px;
+                justify-content: flex-start;
+                gap: 36px;
+            }
+
+            .specs-container {
+                position: static;
+                top: auto;
+                right: auto;
+                width: 100%;
+                max-width: none;
+                margin-top: 0;
+            }
+
+            .top-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 24px;
+            }
+
+            .nav-info {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .main-title {
+                font-size: 36px;
+            }
+
+            .bottom-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 28px;
+            }
+
+            .tags-container {
+                flex-wrap: wrap;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="loading-screen" class="loading-screen" aria-busy="true" aria-live="polite">
+        <div class="loading-screen__label">Portfolio</div>
+        <div class="loading-screen__words">
+            <span id="loading-word" class="loading-screen__word" aria-hidden="true"></span>
+        </div>
+        <div id="loading-counter" class="loading-screen__counter">000</div>
+        <div class="loading-screen__bar-track" aria-hidden="true">
+            <div id="loading-bar-fill" class="loading-screen__bar-fill"></div>
+        </div>
+    </div>
+
+    <div id="page-content" class="page-content">
+
+    <!-- Background Video -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline poster="">
+            <source src="https://r2.syntx.ai/user_8941760239158877405/generated/f30749d9637c31fbe02f7aab1dc59661_89649f0e-286a-4b30-8fa2-7b2d1c1526b0.mp4" type="video/mp4">
+        </video>
+    </div>
+    
+    <!-- Optional Overlay -->
+    <div class="overlay"></div>
+
+    <div class="main-container">
+        <div class="top-row">
+            <div class="header-group">
+                <div class="main-title">
+                    GREGORY //<br>DESIGN<br>STRATEGY
+                </div>
+                <div class="description">
+                    Crafted with precision code and a user-centric focus for those who don't just browse the web—they build it. Elevate your brand.
+                </div>
+            </div>
+            <div class="nav-info">
+                <span>01/08</span>
+                <div class="line"></div>
+                <span>NEXT PROJECT</span>
+            </div>
+        </div>
+
+        <div class="specs-container">
+            <div class="specs-header">CREATIVE SPECS</div>
+            <div class="spec-row">
+                <span class="spec-label">Stack</span>
+                <span>NextJS Tailwind SQL</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Design</span>
+                <span>Figma - Adobe Suite</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Method</span>
+                <span>Agile Dev - UX Flow</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Output</span>
+                <span>Clean Scalable Systems</span>
+            </div>
+        </div>
+
+        <div class="bottom-row">
+            <div>
+                <div class="model-id">GR-01: CREATIVE HUB</div>
+                <div class="sub-desc">
+                    High-performance builds and a sleek UI for speed and simplicity.
+                </div>
+                <div class="cta">View Case Study</div>
+            </div>
+
+            <div class="tags-container">
+                <div class="tag">CODE</div>
+                <div class="tag">UX</div>
+                <div class="tag">FULL-STACK</div>
+                <div class="tag pill">
+                    <span>PIXEL</span>
+                    <span>PERF</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div><!-- /.page-content -->
+
+    <script>
+    (function () {
+        var COUNTER_MS = 2700;
+        var WORD_MS = 900;
+        var AFTER_100_MS = 400;
+        var WORDS = ["Design", "Create", "Inspire"];
+        var WORD_TRANSITION_MS = 400;
+
+        var loadingEl = document.getElementById("loading-screen");
+        var pageEl = document.getElementById("page-content");
+        var wordEl = document.getElementById("loading-word");
+        var counterEl = document.getElementById("loading-counter");
+        var barFillEl = document.getElementById("loading-bar-fill");
+
+        if (!loadingEl || !pageEl || !wordEl || !counterEl || !barFillEl) return;
+
+        function setProgress(p) {
+            var n = Math.min(100, Math.max(0, Math.round(p)));
+            counterEl.textContent = n.toString().padStart(3, "0");
+            barFillEl.style.transform = "scaleX(" + n / 100 + ")";
+        }
+
+        function showWord(text, skipEnter) {
+            wordEl.textContent = text;
+            wordEl.classList.remove("is-exit");
+            if (skipEnter) {
+                wordEl.classList.add("is-visible");
+                return;
+            }
+            wordEl.classList.remove("is-visible");
+            void wordEl.offsetWidth;
+            wordEl.classList.add("is-visible");
+        }
+
+        function exitWordThen(nextText, done) {
+            wordEl.classList.add("is-exit");
+            wordEl.classList.remove("is-visible");
+            window.setTimeout(function () {
+                wordEl.classList.remove("is-exit");
+                showWord(nextText, false);
+                if (done) done();
+            }, WORD_TRANSITION_MS);
+        }
+
+        var start = performance.now();
+        var wordIndex = 0;
+        var rafId;
+        var finished = false;
+
+        showWord(WORDS[0], false);
+
+        var wordTimer = window.setInterval(function () {
+            wordIndex += 1;
+            if (wordIndex >= WORDS.length) {
+                window.clearInterval(wordTimer);
+                return;
+            }
+            exitWordThen(WORDS[wordIndex], null);
+        }, WORD_MS);
+
+        function tick(now) {
+            if (finished) return;
+            var elapsed = now - start;
+            var p = (elapsed / COUNTER_MS) * 100;
+            if (p >= 100) {
+                finished = true;
+                setProgress(100);
+                window.cancelAnimationFrame(rafId);
+                window.setTimeout(onComplete, AFTER_100_MS);
+                return;
+            }
+            setProgress(p);
+            rafId = window.requestAnimationFrame(tick);
+        }
+
+        function onComplete() {
+            if (!loadingEl.parentNode) return;
+            loadingEl.classList.add("is-exit");
+            window.setTimeout(function () {
+                if (loadingEl.parentNode) loadingEl.remove();
+                pageEl.classList.add("is-visible");
+            }, 600);
+        }
+
+        rafId = window.requestAnimationFrame(tick);
+    })();
+    </script>
+
+</body>
+</html>
