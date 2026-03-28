@@ -48,7 +48,7 @@
             z-index: 2;
             width: 100%; height: 100vh;
             opacity: 0;
-            animation: fadeIn 0.6s var(--ease) 0.1s forwards;
+            animation: fadeIn 1.15s var(--ease) 0.15s forwards;
         }
 
         @keyframes fadeIn {
@@ -64,31 +64,34 @@
             justify-content: space-between;
         }
 
-        /* ── Top ── */
+        /* ── Top (match index: nav top-right) ── */
         .project-top {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: flex-start;
         }
 
-        /* Back link — native href (same outcome as location.assign, no JS helpers) */
-        .back-link {
+        .nav-info {
             font-size: 11px;
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 10px;
-            cursor: pointer;
+            gap: 20px;
             text-decoration: none;
-            color: var(--text);
-            opacity: 0.7;
-            transition: opacity 0.2s;
+            color: inherit;
+            cursor: pointer;
+            opacity: 0.88;
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
-        .back-link:hover { opacity: 1; }
+        .nav-info:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+        .nav-info:active { transform: translateY(0); }
 
-        .project-index {
-            font-size: 11px;
-            opacity: 0.5;
-            letter-spacing: 0.15em;
+        .nav-info .line {
+            width: 80px; height: 1px;
+            background-color: var(--text);
+            opacity: 0.4;
         }
 
         /* ── Hero row ── */
@@ -136,9 +139,13 @@
             text-decoration: underline;
             cursor: pointer;
             letter-spacing: 0.1em;
-            transition: opacity 0.2s;
+            transition: opacity 0.25s ease, transform 0.25s ease, letter-spacing 0.25s ease;
         }
-        .read-more:hover { opacity: 0.7; }
+        .read-more:hover {
+            opacity: 1;
+            transform: translateX(4px);
+            letter-spacing: 0.14em;
+        }
 
         /* ── Footer ── */
         .project-footer {
@@ -156,10 +163,10 @@
             border-top: 1px solid rgba(255, 255, 255, 0.22);
             padding-top: 14px;
             width: 220px;
-            cursor: pointer;
-            transition: border-color 0.2s;
+            max-width: 100%;
+            cursor: default;
+            transition: border-color 0.25s ease;
         }
-        .nav-item:hover { border-color: rgba(255, 255, 255, 0.55); }
 
         a.nav-item {
             text-decoration: none;
@@ -181,16 +188,8 @@
             letter-spacing: 0.1em;
         }
 
-        /* Meta / arrows */
         .meta-info {
             text-align: right;
-        }
-
-        .arrows {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-bottom: 14px;
         }
 
         /* Match index.html .icon-btn */
@@ -203,12 +202,15 @@
             -webkit-backdrop-filter: blur(6px);
             display: flex; align-items: center; justify-content: center;
             cursor: pointer;
-            transition: border-color 0.2s, background 0.2s;
+            transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
         }
         .icon-btn:hover {
             border-color: var(--text);
             background: rgba(255, 255, 255, 0.08);
+            transform: scale(1.06);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
         }
+        .icon-btn:active { transform: scale(1); }
         .icon-btn svg {
             width: 14px; height: 14px;
             stroke: var(--text); fill: none;
@@ -234,6 +236,7 @@
             display: block;
             margin-bottom: 8px;
             letter-spacing: 0.1em;
+            padding-top: 4px;
         }
 
         .meta-label {
@@ -276,6 +279,7 @@
             .side-info { max-width: 100%; }
             .bottom-nav-items { flex-direction: column; gap: 24px; }
             .nav-item { width: 100%; }
+            .project-top { justify-content: flex-end; }
         }
     </style>
 </head>
@@ -298,8 +302,11 @@
 
             <!-- TOP BAR -->
             <div class="project-top">
-                <a class="back-link" href="index.html">← BACK</a>
-                <span class="project-index">02 / 08</span>
+                <a class="nav-info" href="index.html">
+                    <span>02/02</span>
+                    <div class="line"></div>
+                    <span>MAIN PAGE</span>
+                </a>
             </div>
 
             <!-- HERO -->
@@ -323,21 +330,9 @@
                         <span class="nav-item__label">01 // CASE STUDY</span>
                         <h4 class="nav-item__title">DESIGN ARCHITECTURE</h4>
                     </div>
-                    <a class="nav-item" href="index.html">
-                        <span class="nav-item__label">02 // RETURN</span>
-                        <h4 class="nav-item__title">BACK TO OVERVIEW</h4>
-                    </a>
                 </div>
 
                 <div class="meta-info">
-                    <div class="arrows">
-                        <a class="icon-btn" href="index.html" aria-label="Previous — overview">
-                            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-                        </a>
-                        <button type="button" class="icon-btn" aria-label="Next project" disabled>
-                            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-                        </button>
-                    </div>
                     <span class="meta-date">25 OCTOBER 2024 | ARCHIVE</span>
                     <div class="meta-label">CRAFTING DIGITAL<br>EXCELLENCE.</div>
                 </div>
@@ -436,6 +431,23 @@
 
         document.addEventListener("visibilitychange", function () {
             if (!document.hidden && !fading) leader.play().catch(function () {});
+        });
+    })();
+
+    (function () {
+        document.querySelectorAll('a[href$=".html"]').forEach(function (a) {
+            var hrefAttr = a.getAttribute("href");
+            if (!hrefAttr || hrefAttr.charAt(0) === "#") return;
+            a.addEventListener("click", function (e) {
+                if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+                if (/^https?:/i.test(hrefAttr)) return;
+                e.preventDefault();
+                document.body.style.transition = "opacity 0.9s ease";
+                document.body.style.opacity = "0";
+                window.setTimeout(function () {
+                    window.location.href = a.href;
+                }, 920);
+            });
         });
     })();
     </script>
