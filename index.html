@@ -250,27 +250,44 @@
         /* ── Specs ── */
         .specs-container {
             position: absolute;
-            top: 410px; right: 40px;
-            width: 300px;
+            top: 400px;
+            right: 40px;
+            width: min(420px, calc(100vw - 40px - 360px));
+            min-width: 260px;
         }
 
         .specs-header {
             font-size: 12px;
             font-weight: 700;
             letter-spacing: 0.12em;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             color: var(--accent);
         }
 
         .spec-row {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
             border-bottom: 1px solid rgba(229, 195, 166, 0.2);
-            padding: 10px 0;
+            padding: 12px 0;
             font-size: 11px;
         }
 
-        .spec-label { opacity: 0.6; }
+        .spec-label {
+            opacity: 0.6;
+            flex-shrink: 0;
+            letter-spacing: 0.12em;
+        }
+
+        .spec-row > span:not(.spec-label) {
+            text-transform: none;
+            letter-spacing: 0.03em;
+            line-height: 1.55;
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-break: break-word;
+        }
 
         /* ── Bottom row ── */
         .bottom-row {
@@ -452,10 +469,10 @@
             <div class="top-row">
                 <div class="header-group">
                     <div class="main-title">
-                        GREGORY //<br>DESIGN<br>STRATEGY
+                        GREGORY //<br>FULLSTACK<br>ENGINEER
                     </div>
                     <div class="description">
-                        Crafted with precision code and a user-centric focus for those who don't just browse the web—they build it. Elevate your brand.
+                        Building production-grade web apps — from database schema to deployed UI.
                     </div>
                     <!-- Icon buttons -->
                     <div class="icon-buttons">
@@ -490,19 +507,19 @@
                 <div class="specs-header">CREATIVE SPECS</div>
                 <div class="spec-row">
                     <span class="spec-label">Stack</span>
-                    <span>NextJS Tailwind SQL</span>
+                    <span>Node.js · TypeScript · Next.js · ASP.NET Core · PostgreSQL · Redis · Docker</span>
                 </div>
                 <div class="spec-row">
                     <span class="spec-label">Design</span>
-                    <span>Figma · Adobe Suite</span>
+                    <span>Tailwind CSS · Component Systems · Responsive UI</span>
                 </div>
                 <div class="spec-row">
                     <span class="spec-label">Method</span>
-                    <span>Agile Dev · UX Flow</span>
+                    <span>Solo ownership · Microservices · API-first</span>
                 </div>
                 <div class="spec-row">
                     <span class="spec-label">Output</span>
-                    <span>Clean Scalable Systems</span>
+                    <span>Web Apps · REST APIs · SaaS Platforms</span>
                 </div>
             </div>
 
@@ -515,9 +532,9 @@
                         <img src="public/Union.png" alt="" width="68" height="68" loading="lazy" decoding="async">
                     </div>
                     <div class="glass-card__body">
-                        <div class="glass-card__id">GR-01: CREATIVE HUB</div>
+                        <div class="glass-card__id">GR-01: INYAN FOOD DELIVERY PLATFORM</div>
                         <div class="glass-card__desc">
-                            High-performance builds and a sleek UI for speed and simplicity.
+                            Multi-city delivery platform — built solo end to end. ASP.NET Core, Node.js microservices, Next.js, PostgreSQL.
                         </div>
                         <a class="glass-card__btn" href="project.html">View Case Study</a>
                     </div>
@@ -525,10 +542,10 @@
 
                 <!-- Tags -->
                 <div class="tags-container">
-                    <div class="tag">CODE</div>
-                    <div class="tag">UX</div>
+                    <div class="tag">BACKEND</div>
+                    <div class="tag">FRONTEND</div>
                     <div class="tag">FULL-STACK</div>
-                    <div class="tag">PIXEL PERF</div>
+                    <div class="tag">API</div>
                 </div>
 
             </div>
